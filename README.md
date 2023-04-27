@@ -15,7 +15,6 @@ This project won't be updated along with `ao3-web-reader`.
 
 ### Features
 - Accounts authentication.
-- 2FA for logging in.
 - Getting works from ao3.
 - Grouping works using tags.
 - Auto-update of added works.

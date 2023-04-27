@@ -11,8 +11,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=datetime.now)
 
-    auth_fa_token = models.CharField(max_length=32, unique=False, null=True)
-
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
 

@@ -13,7 +13,7 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         ("Details", {
-            "fields": ("username", "password", "auth_fa_token", "date_joined")
+            "fields": ("username", "password", "date_joined")
         }),
         ("Permissions", {
             "fields": ("is_staff", "is_active", "groups", "user_permissions")
@@ -32,4 +32,4 @@ class CustomUserAdmin(UserAdmin):
 
     search_fields = ("username",)
     ordering = ("username",)
-    readonly_fields = ("date_joined", "auth_fa_token")
+    readonly_fields = ("date_joined",)
