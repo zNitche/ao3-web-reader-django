@@ -21,6 +21,7 @@ from django.urls import path, include
 urlpatterns = [
     path("", include("core.urls")),
     path("auth/", include("authenticate.urls")),
+    path("works/", include("works.urls")),
 ]
 
 if settings.DEBUG:

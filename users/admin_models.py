@@ -24,7 +24,7 @@ class CustomUserAdmin(UserAdmin):
         (None, {
             "classes": ("wide",),
             "fields": (
-                "username", "password1", "password", "is_staff",
+                "username", "password1", "password2", "is_staff",
                 "is_active", "groups", "user_permissions"
             )}
          ),
