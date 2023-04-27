@@ -88,12 +88,28 @@ DATABASES = {
     }
 }
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "unique-snowflake",
+if DEBUG:
+    # CACHES = {
+    #     "default": {
+    #         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    #         "LOCATION": "unique-snowflake",
+    #     }
+    # }
+
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": f"redis://127.0.0.1:6000/1",
+        }
     }
-}
+
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": f"redis://redis:6000/1",
+        }
+    }
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 

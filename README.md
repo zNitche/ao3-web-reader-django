@@ -21,4 +21,14 @@ This project won't be updated along with `ao3-web-reader`.
 - Downloading works.
 
 ### Setup
-To be written soon...
+#### Dev
+1. Generate `.env` config file
+```
+python3 generate_dotenv.py
+```
+2. Run dev docker container.
+```
+sudo docker compose -f docker-compose-dev.yml up
+```
+#### Prod
+to do...
