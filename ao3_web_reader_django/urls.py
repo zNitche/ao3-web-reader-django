@@ -14,9 +14,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+from django.conf import settings
+from django.urls import path, include
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", include("core.urls")),
+    path("auth/", include("authenticate.urls")),
 ]
+
+if settings.DEBUG:
+    from django.contrib import admin
+
+    urlpatterns.append(path('admin/', admin.site.urls))
+
+
+handler404 = "core.error_views.not_found"
+handler500 = "core.error_views.server_error"
+handler400 = "core.error_views.bad_request"

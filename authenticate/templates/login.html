@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="main-container">
+    <div>
+        AO3 Reader
+    </div>
+    <div class="login-container">
+        <form class="form-inputs-container" method="POST">
+            {% csrf_token %}
+            {{ form }}
+
+            <button class="login-btn btn btn-primary" type="submit">
+                Login
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

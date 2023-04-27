@@ -1,0 +1,42 @@
+{% extends "page_layout.html" %}
+{% load static %}
+{% block page_content %}
+
+<div class="main-content-wrapper">
+    <div class="main-content-container">
+        {% if update_messages|length > 0 %}
+            {% for message in update_messages %}
+               <div class="content-item">
+                    <div class="item-title">
+                        {{ message.date|date:"d-m-Y G:i" }}
+                    </div>
+                    <div class="item-content-wrapper">
+                        <div class="update-message-container">
+                            {{ message.get_message_by_type }} <a href="#">{{ message.work.name }}</a>.
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if update_messages_page.has_next or update_messages_page.has_previous %}
+                <div class="pagination-controls">
+                    {% if update_messages_page.has_previous %}
+                        <a class="pagination-controls-item"
+                           href="{% url 'core:home' page_id=update_messages_page.previous_page_number %}">
+                            Prev
+                        </a>
+                    {% endif %}
+                    {% if update_messages_page.has_next %}
+                        <a class="pagination-controls-item {% if not update_messages_page.has_prev %} left-p-controls-item {% endif %}"
+                           href="{% url 'core:home' page_id=update_messages_page.next_page_number %}">
+                            Next
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <p>No update messages to show</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

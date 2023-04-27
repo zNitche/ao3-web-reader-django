@@ -1,0 +1,15 @@
+<div class="form-container">
+  {% for field in form %}
+      {{ field }}
+
+      {% if field.errors %}
+      <div class="form-errors-container">
+          {% for error in field.errors %}
+              <span>
+                  {{ error }}
+              </span>
+          {% endfor %}
+      </div>
+      {% endif %}
+  {% endfor %}
+</div>
