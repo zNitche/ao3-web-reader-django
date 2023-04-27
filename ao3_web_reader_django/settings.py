@@ -11,20 +11,22 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dotenv.load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-moe0pxq!h#bj@ccp-_#ql=s8+e2mv9asfs+76xovb1^^(n2)94'
+SECRET_KEY = os.getenv("SECRET_KEY", os.urandom(25))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 1
+DEBUG = int(os.getenv("DEBUG", 0))
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]"]
 
@@ -87,11 +89,11 @@ DATABASES = {
 }
 
 CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-            "LOCATION": "unique-snowflake",
-        }
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
     }
+}
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
@@ -104,6 +106,48 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'users.validators.PasswordLengthValidator',
     },
 ]
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "formatter": "verbose",
+            "filename": os.path.join(BASE_DIR, "logs", "log.log"),
+        },
+    },
+    "loggers": {
+        "main": {
+            "level": "INFO",
+            "handlers": ["file"],
+        },
+        "dev": {
+            "handlers": ["console"],
+            "propagate": True,
+            "level": "DEBUG",
+        },
+    },
+}
+
+LOGGER_NAME = "dev" if DEBUG else "main"
 
 
 # Internationalization

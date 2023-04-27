@@ -26,6 +26,7 @@ class Work(models.Model):
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name="works")
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="works")
 
+    # Move to custom manager
     # def get_not_removed_chapters(self):
     #     return [chapter for chapter in self.chapters if not chapter.was_removed]
     #
@@ -58,18 +59,18 @@ class Chapter(models.Model):
 
     work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name="chapters")
 
-    # def get_formatted_text(self):
-    #     return self.text.split("\n")
-    #
-    # def get_next_chapter(self):
-    #     prev_chapter = Chapter.query.filter_by(work_id=self.work_id, order_id=self.order_id + 1).first()
-    #
-    #     return prev_chapter
-    #
-    # def get_prev_chapter(self):
-    #     next_chapter = Chapter.query.filter_by(work_id=self.work_id, order_id=self.order_id - 1).first()
-    #
-    #     return next_chapter
+    def get_formatted_text(self):
+        return self.text.split("\n")
+
+    def get_next_chapter(self):
+        next_chapter = Chapter.objects.filter(work_id=self.work_id, order_id=self.order_id + 1).first()
+
+        return next_chapter
+
+    def get_prev_chapter(self):
+        prev_chapter = Chapter.query.filter(work_id=self.work_id, order_id=self.order_id - 1).first()
+
+        return prev_chapter
 
     def __str__(self):
         return self.title
