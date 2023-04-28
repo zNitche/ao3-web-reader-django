@@ -197,3 +197,11 @@ AUTH_USER_MODEL = "users.User"
 
 LOGIN_REDIRECT_URL = "core:home"
 LOGIN_URL = "authenticate:login"
+
+
+if DEBUG:
+    CELERY_BROKER_URL = "redis://127.0.0.1:6000/2"
+    CELERY_RESULT_BACKEND = "redis://127.0.0.1:6000/2"
+else:
+    CELERY_BROKER_URL = "redis://redis:6000/2"
+    CELERY_RESULT_BACKEND = "redis://redis:6000/2"
