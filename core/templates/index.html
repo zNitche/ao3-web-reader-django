@@ -12,7 +12,10 @@
                     </div>
                     <div class="item-content-wrapper">
                         <div class="update-message-container">
-                            {{ message.get_message_by_type }} <a href="#">{{ message.work.name }}</a>.
+                            {{ message.get_message_by_type }}
+                            <a href="{% url 'works:chapters' work_id=message.work.work_id %}">
+                                {{ message.work.name }}
+                            </a>.
                         </div>
                     </div>
                 </div>

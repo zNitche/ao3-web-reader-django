@@ -38,10 +38,10 @@
                             <span class="content-item-name">Work ID:</span> {{ work.work_id }}
                         </div>
                         <div>
-                            <span class="content-item-name">Chapters:</span> {{ work.chapters|length }}
+                            <span class="content-item-name">Chapters:</span> {{ work.chapters.all|length }}
                         </div>
                         <div>
-                            <span class="content-item-name">Completed chapters:</span> {{ work.get_completed_chapters|length }}/{{ work.chapters|length }}
+                            <span class="content-item-name">Completed chapters:</span> {{ work.get_completed_chapters|length }}/{{ work.chapters.all|length }}
                         </div>
                         {% if work.get_removed_chapters|length > 0 %}
                             <div>
@@ -62,14 +62,14 @@
                         {% if not work.all_chapters_completed %}
                             <button type="button" class="btn" onclick="showChaptersCompletionModal('chaptersCompletionModal',
                                'Do you want to mark all chapters of {{ work.name }} as completed ?',
-                               '{% url 'works:mark_chapters_as_completed' work_id=work.work_id %}?page_id={{ works_paginator.number }}',);">
+                               '{% url 'works:mark_chapters_as_completed' work_id=work.work_id %}?page_id={{ works_paginator.num_pages }}',);">
                                     <img src="{% static 'icons/done_all_icon.svg' %}" alt="toggle all chapters completion">
                             </button>
                         {% endif %}
                         {% if work.all_chapters_completed %}
                             <button type="button" class="btn" onclick="showChaptersCompletionModal('chaptersCompletionModal',
                                'Do you want to mark all chapters of {{ work.name }} as incomplete ?',
-                               '{% url 'works:mark_chapters_as_incomplete' work_id=work.work_id %}?page_id={{ works_paginator.number }}',);">
+                               '{% url 'works:mark_chapters_as_incomplete' work_id=work.work_id %}?page_id={{ works_paginator.num_pages }}',);">
                                     <img src="{% static 'icons/remove_done_icon.svg' %}" alt="remove all chapters completion">
                             </button>
                         {% endif %}

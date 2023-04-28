@@ -67,7 +67,7 @@ class Chapter(models.Model):
         return next_chapter
 
     def get_prev_chapter(self):
-        prev_chapter = Chapter.query.filter(work_id=self.work_id, order_id=self.order_id - 1).first()
+        prev_chapter = Chapter.objects.filter(work_id=self.work_id, order_id=self.order_id - 1).first()
 
         return prev_chapter
 
