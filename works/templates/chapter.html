@@ -5,7 +5,7 @@
 <div class="main-content-wrapper">
     <div class="main-content-container">
         <div class="chapter-work-name-wrapper">
-            <a href="{{ url_for('works.chapters', work_id=chapter.work.work_id) }}">
+            <a href="{% url 'works:chapters' work_id=chapter.work.work_id %}">
                 <h2>
                     {{ chapter.work.name }}
                 </h2>
@@ -15,7 +15,7 @@
             <h3>{{ chapter.title }}</h3>
         </div>
         <div class="chapter-content-wrapper">
-            {% for row in chapter.get_formatted_text() %}
+            {% for row in chapter.get_formatted_text %}
                 <p>
                     {{ row }}
                 </p>
@@ -23,21 +23,21 @@
         </div>
         <div class="chapter-completion-wrapper">
             <button id="toggle-chapter-completion-button" type="button"
-                    onclick="toggleChapterCompletion('Mark as completed', 'Mark as incomplete', '{{ url_for('works.chapter_toggle_completed_state', work_id=chapter.work.work_id, chapter_id=chapter.chapter_id) }}');"
+                    onclick="toggleChapterCompletion('Mark as completed', 'Mark as incomplete', '{% url 'works:chapter_toggle_completed_state' work_id=chapter.work.work_id chapter_id=chapter.chapter_id %}');"
                     class="btn btn-primary chapter-completion-button">
 
-                {{ "Mark as incomplete" if chapter.completed else "Mark as completed" }}
+                {% if chapter.completed %} Mark as incomplete {% else %} Mark as completed {% endif %}
             </button>
         </div>
-        {% if chapter.get_next_chapter() or chapter.get_prev_chapter() and not chapter.was_removed %}
+        {% if chapter.get_next_chapter or chapter.get_prev_chapter and not chapter.was_removed %}
             <div class="chapter-controls-wrapper">
-                {% if chapter.get_prev_chapter() %}
-                    <a class="btn btn-secondary" href="{{ url_for('works.chapter', work_id=chapter.work.work_id, chapter_id=chapter.get_prev_chapter().chapter_id) }}">
+                {% if chapter.get_prev_chapter %}
+                    <a class="btn btn-secondary" href="{% url 'works:chapter' work_id=chapter.work.work_id chapter_id=chapter.get_prev_chapter.chapter_id %}">
                         Prev Chapter
                     </a>
                 {% endif %}
-                {% if chapter.get_next_chapter() %}
-                    <a class="btn btn-secondary" href="{{ url_for('works.chapter', work_id=chapter.work.work_id, chapter_id=chapter.get_next_chapter().chapter_id) }}">
+                {% if chapter.get_next_chapter %}
+                    <a class="btn btn-secondary" href="{% url 'works:chapter' work_id=chapter.work.work_id chapter_id=chapter.get_next_chapter.chapter_id %}">
                         Next Chapter
                     </a>
                 {% endif %}
