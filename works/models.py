@@ -5,9 +5,9 @@ from datetime import datetime
 
 
 class Tag(models.Model):
-    name = models.TextField(unique=False, null=False)
+    name = models.CharField(max_length=200, unique=False, null=False)
 
-    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="tags")
 
     def __str__(self):
         return self.name
@@ -26,20 +26,19 @@ class Work(models.Model):
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name="works")
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="works")
 
-    # Move to custom manager
-    # def get_not_removed_chapters(self):
-    #     return [chapter for chapter in self.chapters if not chapter.was_removed]
-    #
-    # def get_removed_chapters(self):
-    #     return [chapter for chapter in self.chapters if chapter.was_removed]
-    #
-    # def get_completed_chapters(self):
-    #     return [chapter for chapter in self.chapters if chapter.completed]
-    #
-    # def all_chapters_completed(self):
-    #     chapters_completion = [chapter.completed for chapter in self.chapters]
-    #
-    #     return all(chapters_completion)
+    def get_not_removed_chapters(self):
+        return [chapter for chapter in self.chapters.all() if not chapter.was_removed]
+
+    def get_removed_chapters(self):
+        return [chapter for chapter in self.chapters.all() if chapter.was_removed]
+
+    def get_completed_chapters(self):
+        return [chapter for chapter in self.chapters.all() if chapter.completed]
+
+    def all_chapters_completed(self):
+        chapters_completion = [chapter.completed for chapter in self.chapters.all()]
+
+        return all(chapters_completion)
 
     def __str__(self):
         return self.name

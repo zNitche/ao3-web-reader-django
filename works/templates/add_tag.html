@@ -1,0 +1,20 @@
+{% extends "page_layout.html" %}
+{% load static %}
+{% block page_content %}
+
+<div class="main-content-wrapper">
+    <div class="main-content-container">
+        <div class="data-form-wrapper">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+
+                <button class="login-btn btn btn-success" type="submit">
+                    Add
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

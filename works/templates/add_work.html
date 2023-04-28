@@ -1,0 +1,43 @@
+{% extends "page_layout.html" %}
+{% load static %}
+{% block page_content %}
+
+<div class="main-content-wrapper">
+    <div class="main-content-container">
+        <div class="data-form-wrapper">
+            <form action="{{ url_for('works.add_work') }}" method="POST">
+                {% with form=add_work_form %}
+                    {% include "components/form.html" %}
+                {% endwith %}
+
+                <button class="login-btn btn btn-success" type="submit">
+                    Add
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="main-content-container">
+        {% if running_processes|length > 0 %}
+            <div class="running-processes-wrapper">
+                <div class="running-processes-title">
+                    Running Processes
+                </div>
+                <div class="running-processes-container">
+                    {% for process_data in running_processes %}
+                        <div class="running-process-container">
+                            <div class="running-process-name">
+                                {{ process_data['work_title'] }}
+                            </div>
+                            <div class="running-process-progress">
+                                {{ process_data['progress'] }}%
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends "page_layout.html" %}
+{% load static %}
+{% block page_content %}
+
+<div class="main-content-wrapper">
+    <div class="main-content-container">
+        <div class="search-bar-wrapper mb-2">
+            <form action="{% url 'works:works' tag_name=tag.name %}" method="GET">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="search" placeholder="work name">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <img src="{% static 'icons/search_icon.svg' %}" alt="search">
+                    </button>
+                  </div>
+                </div>
+            </form>
+        </div>
+        {% if works_items|length > 0 %}
+            {% for work in works_items %}
+               <div class="content-item">
+                   <div class="content-item-side-icon-wrapper">
+                       <button type="button" class="btn" onclick="showRemoveModal('removeWorkModal',
+                       '{{ work.name }}',
+                       '{% url 'works:remove_work' work_id=work.work_id %}',);">
+                            <img src="{% static 'icons/delete_icon.svg' %}" alt="remove work">
+                       </button>
+                   </div>
+                    <div class="item-title">
+                        <a href="{% url 'works:chapters' work_id=work.work_id %}">
+                            <h2>
+                                {{ work.name }}
+                            </h2>
+                        </a>
+                    </div>
+                    <div class="item-content-wrapper">
+                        <div>
+                            <span class="content-item-name">Work ID:</span> {{ work.work_id }}
+                        </div>
+                        <div>
+                            <span class="content-item-name">Chapters:</span> {{ work.chapters|length }}
+                        </div>
+                        <div>
+                            <span class="content-item-name">Completed chapters:</span> {{ work.get_completed_chapters|length }}/{{ work.chapters|length }}
+                        </div>
+                        {% if work.get_removed_chapters|length > 0 %}
+                            <div>
+                                <span class="content-item-name">Removed chapters:</span> {{ work.get_removed_chapters|length }}
+                            </div>
+                        {% endif %}
+                        <div>
+                            <span class="content-item-name">Added:</span> {{ work.date|date:"d-m-Y G:i" }}
+                        </div>
+                        <div>
+                            <span class="content-item-name">Updated:</span> {{ work.last_updated|date:"d-m-Y G:i" }}
+                        </div>
+                    </div>
+                   <div class="work-management-wrapper">
+                        <a href="{% url 'works:download_work' work_id=work.work_id %}">
+                            <img src="{% static 'icons/download_icon.svg' %}" alt="download work">
+                        </a>
+                        {% if not work.all_chapters_completed %}
+                            <button type="button" class="btn" onclick="showChaptersCompletionModal('chaptersCompletionModal',
+                               'Do you want to mark all chapters of {{ work.name }} as completed ?',
+                               '{% url 'works:mark_chapters_as_completed' work_id=work.work_id %}?page_id={{ works_paginator.number }}',);">
+                                    <img src="{% static 'icons/done_all_icon.svg' %}" alt="toggle all chapters completion">
+                            </button>
+                        {% endif %}
+                        {% if work.all_chapters_completed %}
+                            <button type="button" class="btn" onclick="showChaptersCompletionModal('chaptersCompletionModal',
+                               'Do you want to mark all chapters of {{ work.name }} as incomplete ?',
+                               '{% url 'works:mark_chapters_as_incomplete' work_id=work.work_id %}?page_id={{ works_paginator.number }}',);">
+                                    <img src="{% static 'icons/remove_done_icon.svg' %}" alt="remove all chapters completion">
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            {% if works_paginator.has_next or works_paginator.has_previous %}
+                <div class="pagination-controls">
+                    {% if works_paginator.has_previous %}
+                        <a class="pagination-controls-item" href="{% url 'works:all_works'
+                         page_id=works_paginator.previous_page_number tag_name=tag.name %}">
+                            Prev
+                        </a>
+                    {% endif %}
+                    {% if works_paginator.has_next %}
+                        <a class="pagination-controls-item {% if not works_paginator.has_previous %} left-p-controls-item' {% endif %} }}"
+                           href="{% url 'works:all_works'
+                                 page_id=works_paginator.next_page_number tag_name=tag.name %}">
+                            Next
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <p>No works to show</p>
+        {% endif %}
+    </div>
+
+    <!-- removeWorkModal -->
+    <div class="modal fade" id="removeWorkModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title">Remove work</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to remove: <span id="remove-modal-item-name"></span>
+                </div>
+                <div class="modal-footer">
+                    <form action="" id="remove-modal-form" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            Remove
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- chaptersCompletionModal -->
+    <div class="modal fade" id="chaptersCompletionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title">Toggle chapters completion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <span id="chapter-completion-modal-text"></span>
+                </div>
+                <div class="modal-footer">
+                    <form action="" id="chapters-completion-form" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

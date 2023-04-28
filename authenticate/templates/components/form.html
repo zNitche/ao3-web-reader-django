@@ -1,7 +1,9 @@
 <div class="form-container">
   {% for field in form %}
-      {{ field }}
-
+      <div class="form-inputs-container">
+          {{ field.label_tag }}
+          {{ field }}
+      </div>
       {% if field.errors %}
       <div class="form-errors-container">
           {% for error in field.errors %}

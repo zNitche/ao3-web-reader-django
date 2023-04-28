@@ -1,0 +1,68 @@
+{% extends "page_layout.html" %}
+{% load static %}
+{% block page_content %}
+
+<div class="main-content-wrapper">
+    <div class="main-content-container">
+        {% if tags|length > 0 %}
+            {% for tag in tags %}
+               <div class="content-item">
+                   <div class="content-item-side-icon-wrapper">
+                       <button type="button" class="btn" onclick="showRemoveModal('removeTagModal',
+                       '{{ tag.name }}',
+                       '{% url 'works:remove_tag' tag_id=tag.id %}',);">
+                            <img src="{% static 'icons/delete_icon.svg' %}" alt="remove tag">
+                       </button>
+                   </div>
+                    <div class="item-title">
+                        <a href="{% url 'works:works' tag_name=tag.name %}">
+                            <h2>
+                                {{ tag.name }}
+                            </h2>
+                        </a>
+                    </div>
+                    <div class="item-content-wrapper">
+                        <div>
+                            <span class="content-item-name">Works count:</span> {{ tag.works|length }}
+                        </div>
+                    </div>
+                    <div class="work-management-wrapper">
+                        <a href="{% url 'works:removed_works' tag_name=tag.name %}">
+                            <img src="{% static 'icons/archive_icon.svg' %}" alt="removed works">
+                        </a>
+                        <a href="{% url 'works:download_tag' tag_id=tag.id %}">
+                            <img src="{% static 'icons/download_icon.svg' %}" alt="download works">
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No tags to show</p>
+        {% endif %}
+    </div>
+
+    <!-- removeTagModal -->
+    <div class="modal fade" id="removeTagModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h5 class="modal-title">Remove tag</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to remove: <span id="remove-modal-item-name"></span>
+                </div>
+                <div class="modal-footer">
+                    <form action="" id="remove-modal-form" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            Remove
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

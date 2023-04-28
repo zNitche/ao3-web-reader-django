@@ -14,7 +14,7 @@ class MessagesConsts:
 
 
 class PaginationConsts:
-    UPDATE_MESSAGES_PER_PAGE = 2
+    UPDATE_MESSAGES_PER_PAGE = 25
     WORKS_PER_PAGE = 10
 
 
