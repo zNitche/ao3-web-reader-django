@@ -176,6 +176,7 @@ LOGGING = {
 }
 
 LOGGER_NAME = "dev" if DEBUG else "main"
+CELERY_LOGGER_NAME = "dev" if DEBUG else "celery_logger"
 
 
 # Internationalization
@@ -187,7 +188,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

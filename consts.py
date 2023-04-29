@@ -31,6 +31,7 @@ class ProcessesConsts:
     WORK_TITLE = "work_title"
     PROCESS_NAME = "process_name"
     PROGRESS = "progress"
+    PROCESS_TIMESTAMP = "timestamp"
 
     IS_RUNNING = "is_running"
 

@@ -21,6 +21,7 @@ class AddTagForm(forms.Form):
 
 class AddWorkForm(forms.Form):
     work_id = forms.CharField(label="Work ID", required=True)
+    tag_name = forms.ChoiceField(label="", required=True)
 
     template_name = "components/form.html"
 
@@ -30,5 +31,14 @@ class AddWorkForm(forms.Form):
 
         if work:
             raise ValidationError(MessagesConsts.WORK_ALREADY_ADDED)
+
+        return data
+
+    def clean_tag_name(self):
+        data = self.cleaned_data["tag_name"]
+        tag = models.Tag.objects.filter(owner=self.user, name=data).first()
+
+        if not tag:
+            raise ValidationError(MessagesConsts.TAG_DOESNT_EXIST)
 
         return data

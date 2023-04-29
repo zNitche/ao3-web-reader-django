@@ -5,7 +5,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import JsonResponse
-from django.core.cache import cache
 from works import forms, models, tasks
 from consts import PaginationConsts, MessagesConsts
 from utils import files_utils, common
@@ -63,15 +62,16 @@ def remove_work(request, work_id):
 def add_work(request):
     form = forms.AddWorkForm(data=request.POST or None)
 
+    user_tags = [(tag.name, tag.name) for tag in request.user.tags.all()]
+    form.fields["tag_name"].choices = user_tags
+
     if request.method == "POST":
         form.user = request.user
 
         if form.is_valid():
-            #scrapping logic here
-
-            x = cache.get("test_task")
-
-            tasks.debug_task.delay()
+            work_id = request.POST["work_id"]
+            tag_name = request.POST["tag_name"]
+            tasks.ScraperProcess.apply_async((request.user.id, tag_name, work_id))
 
             messages.add_message(request, messages.SUCCESS, MessagesConsts.SCRAPING_PROCESS_STARTED)
 
