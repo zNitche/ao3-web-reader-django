@@ -5,8 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import JsonResponse
-from works import forms
-from works import models
+from django.core.cache import cache
+from works import forms, models, tasks
 from consts import PaginationConsts, MessagesConsts
 from utils import files_utils, common
 import tempfile
@@ -68,6 +68,10 @@ def add_work(request):
 
         if form.is_valid():
             #scrapping logic here
+
+            x = cache.get("test_task")
+
+            tasks.debug_task.delay()
 
             messages.add_message(request, messages.SUCCESS, MessagesConsts.SCRAPING_PROCESS_STARTED)
 
