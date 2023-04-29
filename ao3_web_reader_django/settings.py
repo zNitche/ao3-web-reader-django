@@ -150,6 +150,12 @@ LOGGING = {
             "formatter": "verbose",
             "filename": os.path.join(BASE_DIR, "logs", "log.log"),
         },
+        "celery_file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "formatter": "simple",
+            "filename": os.path.join(BASE_DIR, "logs", "celery_log.log"),
+        },
     },
     "loggers": {
         "main": {
@@ -159,6 +165,11 @@ LOGGING = {
         "dev": {
             "handlers": ["console"],
             "propagate": True,
+            "level": "DEBUG",
+        },
+        "celery_logger": {
+            "handlers": ["celery_file"],
+            "propagate": False,
             "level": "DEBUG",
         },
     },
