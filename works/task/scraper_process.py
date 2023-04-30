@@ -12,12 +12,16 @@ class ScraperProcess(UserTaskBase):
         self.work_id = None
         self.work_title = None
 
+        self.cache_data_timeout = 60
+
         self.progress = 0
 
     def run(self, owner_id, tag_name, work_id):
         self.owner_id = owner_id
         self.tag_name = tag_name
         self.work_id = work_id
+
+        self.process_cache_key = f"{self.owner_id}_{self.get_process_name()}_{self.timestamp}"
 
         self.mainloop()
 

@@ -8,9 +8,6 @@ class UserTaskBase(TaskBase):
 
         super().__init__()
 
-    def run(self, *args, **kwargs):
-        self.mainloop()
-
     def get_process_data(self):
         process_data = {
             ProcessesConsts.OWNER_ID: self.owner_id,

@@ -9,10 +9,16 @@ from consts import ProcessesConsts
 class TaskBase(celery.Task):
     def __init__(self):
         self.timestamp = str(datetime.timestamp(datetime.now()))
+        self.process_cache_key = f"{self.get_process_name()}_{self.timestamp}"
+        self.cache_data_timeout = 30
+
         self.logger = logging.getLogger(settings.CELERY_LOGGER_NAME)
 
     def get_process_name(self):
         return type(self).__name__
+
+    def run(self, *args, **kwargs):
+        self.mainloop()
 
     def mainloop(self):
         pass
@@ -24,7 +30,7 @@ class TaskBase(celery.Task):
         pass
 
     def save_to_cache(self, key, value):
-        cache.set(key, value)
+        cache.set(key, value, self.cache_data_timeout)
 
     def read_from_cache(self, key):
         return cache.get(key)
@@ -33,7 +39,7 @@ class TaskBase(celery.Task):
         cache.delete(key)
 
     def finish_process(self):
-        self.clear_process_cache_entry(self.timestamp)
+        self.clear_process_cache_entry(self.process_cache_key)
 
     def get_process_data(self):
         process_data = {
@@ -45,4 +51,4 @@ class TaskBase(celery.Task):
 
     def update_process_data(self):
         process_data = self.get_process_data()
-        self.save_to_cache(self.timestamp, process_data)
+        self.save_to_cache(self.process_cache_key, process_data)

@@ -6,8 +6,8 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import JsonResponse
 from works import forms, models, tasks
-from consts import PaginationConsts, MessagesConsts
-from utils import files_utils, common
+from consts import PaginationConsts, MessagesConsts, ProcessesConsts
+from utils import files_utils, common, tasks_utils
 import tempfile
 import os
 
@@ -65,15 +65,24 @@ def add_work(request):
     user_tags = [(tag.name, tag.name) for tag in request.user.tags.all()]
     form.fields["tag_name"].choices = user_tags
 
+    running_tasks = tasks_utils.get_tasks_keys_by_type_and_owner_id("ScraperProcess", request.user.id)
+
     if request.method == "POST":
         form.user = request.user
 
         if form.is_valid():
             work_id = request.POST["work_id"]
             tag_name = request.POST["tag_name"]
-            tasks.ScraperProcess.apply_async((request.user.id, tag_name, work_id))
 
-            messages.add_message(request, messages.SUCCESS, MessagesConsts.SCRAPING_PROCESS_STARTED)
+            task_data = tasks_utils.get_task_data_for_user_and_work(request.user.id, "ScraperProcess", work_id)
+
+            if task_data:
+                messages.add_message(request, messages.ERROR,
+                                     MessagesConsts.SCRAPING_PROCESS_FOR_WORK_ID_RUNNING.format(work_id=work_id))
+
+            else:
+                tasks.ScraperProcess.apply_async((request.user.id, tag_name, work_id))
+                messages.add_message(request, messages.SUCCESS, MessagesConsts.SCRAPING_PROCESS_STARTED)
 
     return render(request, "add_work.html", {"form": form})
 
