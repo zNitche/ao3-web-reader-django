@@ -7,7 +7,7 @@ def get_keys_by_pattern(pattern):
     cleared_keys = []
 
     for key in keys:
-        cleared_keys.append(key.decode()[3:])
+        cleared_keys.append(key.decode().split(":")[2])
 
     return cleared_keys
 
