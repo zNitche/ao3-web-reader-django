@@ -29,6 +29,13 @@ def get_task_data_by_key(key):
     return data
 
 
+def get_tasks_data_for_user(owner_id, task_type):
+    keys = get_tasks_keys_by_type_and_owner_id(task_type, owner_id)
+    data = [get_task_data_by_key(key) for key in keys]
+
+    return data
+
+
 def get_task_data_for_user_and_work(owner_id, task_type, work_id):
     keys = get_tasks_keys_by_type_and_owner_id(task_type, owner_id)
     data = None

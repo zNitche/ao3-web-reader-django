@@ -65,7 +65,7 @@ def add_work(request):
     user_tags = [(tag.name, tag.name) for tag in request.user.tags.all()]
     form.fields["tag_name"].choices = user_tags
 
-    running_tasks = tasks_utils.get_tasks_keys_by_type_and_owner_id("ScraperProcess", request.user.id)
+    running_tasks_data = tasks_utils.get_tasks_data_for_user(request.user.id, "ScraperProcess")
 
     if request.method == "POST":
         form.user = request.user
@@ -84,7 +84,12 @@ def add_work(request):
                 tasks.ScraperProcess.apply_async((request.user.id, tag_name, work_id))
                 messages.add_message(request, messages.SUCCESS, MessagesConsts.SCRAPING_PROCESS_STARTED)
 
-    return render(request, "add_work.html", {"form": form})
+            return redirect("works:add_work")
+
+    return render(request, "add_work.html", {
+        "form": form,
+        "running_tasks": running_tasks_data
+    })
 
 
 @login_required

@@ -14,7 +14,7 @@ class ScraperProcess(UserTaskBase):
 
         self.cache_data_timeout = 60
 
-        self.progress = 0
+        self.task_progress = 0
 
     def run(self, owner_id, tag_name, work_id):
         self.owner_id = owner_id
@@ -26,7 +26,7 @@ class ScraperProcess(UserTaskBase):
         self.mainloop()
 
     def calc_progres(self, current_step, max_steps):
-        self.progress = int(current_step * 100 / max_steps)
+        self.task_progress = int(current_step * 100 / max_steps)
 
     def get_work_update_callback(self, current_step, total_steps):
         self.calc_progres(current_step, total_steps)
@@ -38,7 +38,7 @@ class ScraperProcess(UserTaskBase):
             ProcessesConsts.WORK_ID: self.work_id,
             ProcessesConsts.WORK_TITLE: self.work_title,
             ProcessesConsts.PROCESS_NAME: self.get_process_name(),
-            ProcessesConsts.PROGRESS: self.progress,
+            ProcessesConsts.PROGRESS: self.task_progress,
         }
 
         return process_data
