@@ -2,11 +2,11 @@ from works import models
 from consts import WorksConsts, ChaptersConsts
 
 
-def create_chapters_models(work_data):
+def create_chapters_models(work_id, work_data):
     chapters = []
 
     for chapter_data in work_data[WorksConsts.CHAPTERS_DATA]:
-        chapters.append(create_chapter_model(chapter_data))
+        chapters.append(create_chapter_model(work_id, chapter_data))
 
     return chapters
 

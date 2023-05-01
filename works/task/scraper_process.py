@@ -58,7 +58,7 @@ class ScraperProcess(UserTaskBase):
 
             if not user_work:
                 work.save()
-                chapters = models_utils.create_chapters_models(work_data)
+                chapters = models_utils.create_chapters_models(work.id, work_data)
 
                 for chapter in chapters:
                     chapter.work_id = work.id
