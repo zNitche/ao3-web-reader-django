@@ -1,0 +1,1 @@
+celery -A ao3_web_reader_django beat -l INFO

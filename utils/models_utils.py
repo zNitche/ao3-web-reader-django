@@ -11,7 +11,7 @@ def create_chapters_models(work_data):
     return chapters
 
 
-def create_chapter_model(chapter_data):
+def create_chapter_model(work_id, chapter_data):
     chapter_id = chapter_data[ChaptersConsts.ID]
     title = chapter_data[ChaptersConsts.NAME]
     content = chapter_data[ChaptersConsts.CONTENT]
@@ -19,7 +19,7 @@ def create_chapter_model(chapter_data):
     chapter_date = chapter_data[ChaptersConsts.DATE]
 
     chapter = models.Chapter(title=title, chapter_id=chapter_id, text="\n".join(content),
-                             order_id=order_id, date=chapter_date, completed=False)
+                             order_id=order_id, date=chapter_date, completed=False, work_id=work_id)
 
     return chapter
 

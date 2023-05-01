@@ -6,3 +6,4 @@ migrations/
 .env
 *.env
 *.log
+celerybeat-schedule

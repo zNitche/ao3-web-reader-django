@@ -169,7 +169,8 @@ LOGGING = {
 }
 
 LOGGER_NAME = "dev" if DEBUG else "main"
-CELERY_LOGGER_NAME = "dev" if DEBUG else "celery_logger"
+# CELERY_LOGGER_NAME = "dev" if DEBUG else "celery_logger"
+CELERY_LOGGER_NAME = "celery_logger"
 
 
 # Internationalization

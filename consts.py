@@ -58,3 +58,9 @@ class ChaptersConsts:
 class UpdateMessagesConsts:
     MESSAGE_ADDED_TYPE = "added"
     MESSAGE_REMOVED_TYPE = "removed"
+
+
+class TasksDelays:
+    WORKS_UPDATER_JOBS_DELAY = 5
+    WORKS_EXIST_CHECK_JOBS_DELAY = 5
+    WORKS_UPDATER_INTERVAL = 7200
