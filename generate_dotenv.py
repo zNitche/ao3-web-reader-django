@@ -8,6 +8,7 @@ def get_main_config():
         "DB_PATH": "",
         "LOGS_PATH": "",
         "DEBUG": "0",
+        "WORKS_UPDATER_INTERVAL": 7200,
     }
 
     return args

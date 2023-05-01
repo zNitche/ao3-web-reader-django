@@ -1,3 +1,6 @@
+import os
+
+
 class MessagesConsts:
     LOGIN_ERROR = "Wrong username or password"
     SCRAPING_PROCESS_STARTED = "Started work scraping"
@@ -63,4 +66,4 @@ class UpdateMessagesConsts:
 class TasksDelays:
     WORKS_UPDATER_JOBS_DELAY = 5
     WORKS_EXIST_CHECK_JOBS_DELAY = 5
-    WORKS_UPDATER_INTERVAL = 7200
+    WORKS_UPDATER_INTERVAL = int(os.getenv("WORKS_UPDATER_INTERVAL", 7200))
