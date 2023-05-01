@@ -1,0 +1,64 @@
+version: "3"
+services:
+  redis:
+    image: redis:6.2-alpine
+    command: /bin/sh -c "redis-server --port 6000"
+    container_name: redis_service
+    restart: unless-stopped
+
+  web_app:
+    depends_on:
+      - redis_service
+    container_name: ao3_web_reader_django
+    command: /bin/sh -c "/ao3_web_reader_django/entrypoint.sh"
+    build: .
+    restart: unless-stopped
+#    ports:
+#      - "8000:8000"
+    volumes:
+      - ${DB_PATH}:/ao3_web_reader_django/database
+      - ${LOGS_PATH}:/ao3_web_reader_django/logs
+      - static_files:/ao3_web_reader_django/static
+#      - app:/ao3_web_reader_django
+    env_file:
+      - .env
+
+  celery_worker:
+    depends_on:
+      - redis_service
+      - web_app
+    command: /bin/sh -c "/ao3_web_reader_django/celery_entrypoint.sh"
+    container_name: ao3_web_reader_celery_worker
+    build: .
+    restart: unless-stopped
+#    volumes:
+#      - app:/ao3_web_reader_django
+    env_file:
+      - .env
+
+  celery_beat_worker:
+    depends_on:
+      - redis_service
+      - web_app
+    command: /bin/sh -c "/ao3_web_reader_django/celery_beat_entrypoint.sh"
+    container_name: ao3_web_reader_celery_beat_worker
+    build: .
+    restart: unless-stopped
+#    volumes:
+#      - app:/ao3_web_reader_django
+    env_file:
+      - .env
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static_files:/ao3_web_reader_django/static
+    depends_on:
+      - web_app
+
+volumes:
+  static_files:
+#  app:
