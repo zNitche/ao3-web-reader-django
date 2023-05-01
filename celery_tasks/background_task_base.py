@@ -1,5 +1,5 @@
 from celery_tasks.task_base import TaskBase
-from consts import ProcessesConsts
+from core.consts import ProcessesConsts
 
 
 class BackgroundTaskBase(TaskBase):

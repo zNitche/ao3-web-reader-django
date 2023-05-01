@@ -1,5 +1,5 @@
 from works import models
-from consts import WorksConsts, ChaptersConsts
+from core.consts import WorksConsts, ChaptersConsts
 
 
 def create_chapters_models(work_id, work_data):

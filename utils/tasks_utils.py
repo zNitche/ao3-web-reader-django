@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from consts import ProcessesConsts
+from core.consts import ProcessesConsts
 
 
 def get_keys_by_pattern(pattern):

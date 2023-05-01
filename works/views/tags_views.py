@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from works import models
 from works import forms
-from consts import MessagesConsts
+from core.consts import MessagesConsts
 from utils import files_utils, common
 import tempfile
 import os

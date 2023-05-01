@@ -1,7 +1,7 @@
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from consts import ProcessesConsts
+from core.consts import ProcessesConsts
 from utils import tasks_utils
 
 

@@ -30,6 +30,13 @@ python3 generate_dotenv.py
 ```
 sudo docker compose -f docker-compose-dev.yml up
 ```
+3. Run celery and celery beat workers
+```
+sh scripts/celery_entrypoint.sh
+```
+```
+sh scripts/celery_beat_entrypoint.sh
+```
 #### Prod
 1. Generate `.env` config file and change config values (`DB_PATH` and `LOGS_PATH`).
 ```

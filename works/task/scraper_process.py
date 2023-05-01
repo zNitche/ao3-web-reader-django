@@ -1,7 +1,7 @@
 from celery_tasks.user_task_base import UserTaskBase
 from utils import works_utils, models_utils
 from works import models
-from consts import ProcessesConsts
+from core.consts import ProcessesConsts
 
 
 class ScraperProcess(UserTaskBase):

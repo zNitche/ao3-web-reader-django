@@ -1,5 +1,5 @@
 from django.db import models
-from consts import UpdateMessagesConsts
+from core.consts import UpdateMessagesConsts
 from django.contrib.auth import get_user_model
 from datetime import datetime
 

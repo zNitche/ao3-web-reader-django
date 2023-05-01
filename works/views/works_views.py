@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import JsonResponse
 from works import forms, models, tasks
-from consts import PaginationConsts, MessagesConsts
+from core.consts import PaginationConsts, MessagesConsts
 from utils import files_utils, common, tasks_utils
 import tempfile
 import os

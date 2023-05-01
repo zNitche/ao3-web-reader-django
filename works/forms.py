@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from consts import MessagesConsts
+from core.consts import MessagesConsts
 from works import models
 
 

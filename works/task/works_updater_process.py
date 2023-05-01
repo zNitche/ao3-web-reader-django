@@ -1,5 +1,5 @@
 from celery_tasks.background_task_base import BackgroundTaskBase
-from consts import ProcessesConsts, ChaptersConsts, UpdateMessagesConsts, TasksDelays
+from core.consts import ProcessesConsts, ChaptersConsts, UpdateMessagesConsts, TasksDelays
 from utils import works_utils, models_utils
 from works import models
 from users import models

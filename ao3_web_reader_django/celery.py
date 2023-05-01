@@ -1,7 +1,7 @@
 import os
 from celery import Celery
 from celery.signals import worker_ready
-from consts import TasksDelays
+from core.consts import TasksDelays
 
 
 # Set the default Django settings module for the 'celery' program.
