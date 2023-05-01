@@ -25,9 +25,12 @@ class WorksUpdaterProcess(BackgroundTaskBase):
         return process_data
 
     def run(self):
-        self.process_cache_key = f"{self.get_process_name()}_{self.timestamp}"
+        if not self.check_if_same_task_running():
+            self.process_cache_key = f"{self.get_process_name()}_{self.timestamp}"
+            self.mainloop()
 
-        self.mainloop()
+        else:
+            self.logger.info(f"[{self.get_process_name()}] - skipped, already running")
 
     def check_if_new_chapter(self, chapter_id, work_chapters):
         status = False if chapter_id in [chapter.chapter_id for chapter in work_chapters] else True

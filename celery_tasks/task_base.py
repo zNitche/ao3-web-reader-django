@@ -52,3 +52,16 @@ class TaskBase(celery.Task):
     def update_process_data(self):
         process_data = self.get_process_data()
         self.save_to_cache(self.process_cache_key, process_data)
+
+    def check_if_same_task_running(self):
+        running_processes = 0
+        workers = self.app.control.inspect().active()
+
+        for worker in workers:
+            for task in workers[worker]:
+                if self.get_process_name() in task["name"]:
+                    running_processes += 1
+
+        running = True if running_processes > 1 else False
+
+        return running
