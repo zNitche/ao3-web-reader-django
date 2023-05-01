@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'authenticate',
     'core',
     'works',
+    'api',
 ]
 
 if DEBUG:
