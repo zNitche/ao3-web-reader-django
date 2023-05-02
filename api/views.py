@@ -20,3 +20,15 @@ def sync_status(request):
     }
 
     return JsonResponse(data=response, status=200)
+
+
+@login_required
+@require_http_methods(["GET"])
+def running_scraping_processes(request):
+    running_tasks_data = tasks_utils.get_tasks_data_for_user(request.user.id, "ScraperProcess")
+
+    response = {
+        "processes_data": running_tasks_data
+    }
+
+    return JsonResponse(data=response, status=200)

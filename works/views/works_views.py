@@ -65,8 +65,6 @@ def add_work(request):
     user_tags = [(tag.name, tag.name) for tag in request.user.tags.all()]
     form.fields["tag_name"].choices = user_tags
 
-    running_tasks_data = tasks_utils.get_tasks_data_for_user(request.user.id, "ScraperProcess")
-
     if request.method == "POST":
         form.user = request.user
 
@@ -86,10 +84,7 @@ def add_work(request):
 
             return redirect("works:add_work")
 
-    return render(request, "add_work.html", {
-        "form": form,
-        "running_tasks": running_tasks_data
-    })
+    return render(request, "add_work.html", {"form": form})
 
 
 @login_required
