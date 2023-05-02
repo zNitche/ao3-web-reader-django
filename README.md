@@ -57,5 +57,5 @@ sudo docker container exec -it ao3_web_reader_django bash
 #### Tests
 App contains some example tests for available apps. To run them:
 ```
-ToDo
+python3 manage.py test
 ```
