@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from core.consts import MessagesConsts
 from works import models
+from utils import works_utils
 
 
 class AddTagForm(forms.Form):
@@ -27,6 +28,10 @@ class AddWorkForm(forms.Form):
 
     def clean_work_id(self):
         data = self.cleaned_data["work_id"]
+
+        if not works_utils.check_if_work_is_accessible(data):
+            raise ValidationError(MessagesConsts.CANT_ACCESS_WORK)
+
         work = models.Work.objects.filter(owner=self.user, work_id=data).first()
 
         if work:
