@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-from core.consts import AO3Consts
-from core.consts import WorksConsts, ChaptersConsts
+from apps.core.consts import AO3Consts
+from apps.core.consts import WorksConsts, ChaptersConsts
 from datetime import datetime
 import time
 

@@ -1,5 +1,5 @@
 from celery_tasks.task_base import TaskBase
-from core.consts import ProcessesConsts
+from apps.core.consts import ProcessesConsts
 
 
 class UserTaskBase(TaskBase):

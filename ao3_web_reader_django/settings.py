@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
-    'authenticate',
-    'core',
-    'works',
-    'api',
+    'apps.users',
+    'apps.authenticate',
+    'apps.core',
+    'apps.works',
+    'apps.api',
 ]
 
 if DEBUG:
@@ -64,7 +64,7 @@ ROOT_URLCONF = 'ao3_web_reader_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "base_templates")],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,7 +114,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'users.validators.PasswordLengthValidator',
+        'NAME': 'apps.users.validators.PasswordLengthValidator',
     },
 ]
 
