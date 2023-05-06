@@ -1,5 +1,5 @@
 from ao3_web_reader_django.celery_tasks.background_task_base import BackgroundTaskBase
-from ao3_web_reader_django.apps.core.consts import ProcessesConsts, ChaptersConsts, UpdateMessagesConsts, TasksDelays
+from ao3_web_reader_django.consts import ProcessesConsts, ChaptersConsts, UpdateMessagesConsts, TasksDelays
 from ao3_web_reader_django.utils import models_utils, works_utils
 from ao3_web_reader_django.apps.users import models
 import time

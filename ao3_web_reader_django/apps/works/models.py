@@ -1,5 +1,5 @@
 from django.db import models
-from ao3_web_reader_django.apps.core.consts import UpdateMessagesConsts
+from ao3_web_reader_django.consts import UpdateMessagesConsts
 from django.contrib.auth import get_user_model
 from datetime import datetime
 

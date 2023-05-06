@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from ao3_web_reader_django.apps.core.consts import MessagesConsts
+from ao3_web_reader_django.consts import MessagesConsts
 from ao3_web_reader_django.apps.works import models
 from ao3_web_reader_django.utils import works_utils
 

@@ -3,7 +3,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from ao3_web_reader_django.apps.works import models
-from ao3_web_reader_django.apps.core.consts import PaginationConsts
+from ao3_web_reader_django.consts import PaginationConsts
 
 
 @login_required

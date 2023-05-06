@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from ao3_web_reader_django.apps.works import tasks
 from ao3_web_reader_django.apps.works import forms, models
-from ao3_web_reader_django.apps.core.consts import PaginationConsts, MessagesConsts
+from ao3_web_reader_django.consts import PaginationConsts, MessagesConsts
 from ao3_web_reader_django.utils import files_utils, common, tasks_utils
 import tempfile
 import os

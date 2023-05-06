@@ -1,7 +1,7 @@
 from ao3_web_reader_django.celery_tasks.user_task_base import UserTaskBase
 from ao3_web_reader_django.utils import models_utils, works_utils
 from ao3_web_reader_django.apps.works import models
-from ao3_web_reader_django.apps.core.consts import ProcessesConsts
+from ao3_web_reader_django.consts import ProcessesConsts
 
 
 class ScraperProcess(UserTaskBase):

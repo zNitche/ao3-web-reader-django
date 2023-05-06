@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.core.cache import cache
 from datetime import datetime
-from ao3_web_reader_django.apps.core.consts import ProcessesConsts
+from ao3_web_reader_django.consts import ProcessesConsts
 
 
 class TaskBase(celery.Task):

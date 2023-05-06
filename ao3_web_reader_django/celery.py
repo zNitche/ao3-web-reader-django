@@ -1,7 +1,7 @@
 import os
 from celery import Celery
 from celery.signals import worker_ready
-from ao3_web_reader_django.apps.core.consts import TasksDelays
+from ao3_web_reader_django.consts import TasksDelays
 
 
 # Set the default Django settings module for the 'celery' program.

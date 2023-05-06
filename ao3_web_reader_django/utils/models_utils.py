@@ -1,5 +1,5 @@
 from ao3_web_reader_django.apps.works import models
-from ao3_web_reader_django.apps.core.consts import WorksConsts, ChaptersConsts
+from ao3_web_reader_django.consts import WorksConsts, ChaptersConsts
 
 
 def create_chapters_models(work_id, work_data):

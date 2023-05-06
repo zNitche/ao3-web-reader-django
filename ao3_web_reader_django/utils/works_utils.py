@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-from ao3_web_reader_django.apps.core.consts import AO3Consts
-from ao3_web_reader_django.apps.core.consts import WorksConsts, ChaptersConsts
+from ao3_web_reader_django.consts import AO3Consts
+from ao3_web_reader_django.consts import WorksConsts, ChaptersConsts
 from datetime import datetime
 import time
 

@@ -1,5 +1,5 @@
 from django.core.cache import cache
-from ao3_web_reader_django.apps.core.consts import ProcessesConsts
+from ao3_web_reader_django.consts import ProcessesConsts
 
 
 def get_keys_by_pattern(pattern):

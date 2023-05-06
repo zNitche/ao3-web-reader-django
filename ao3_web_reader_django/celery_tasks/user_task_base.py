@@ -1,5 +1,5 @@
 from ao3_web_reader_django.celery_tasks.task_base import TaskBase
-from ao3_web_reader_django.apps.core.consts import ProcessesConsts
+from ao3_web_reader_django.consts import ProcessesConsts
 
 
 class UserTaskBase(TaskBase):
