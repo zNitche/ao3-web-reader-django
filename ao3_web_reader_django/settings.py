@@ -15,9 +15,10 @@ import dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = BASE_DIR.parent
 
-dotenv.load_dotenv(os.path.join(BASE_DIR, ".env"))
+dotenv.load_dotenv(os.path.join(PROJECT_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -39,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.users',
-    'apps.authenticate',
-    'apps.core',
-    'apps.works',
-    'apps.api',
+    'ao3_web_reader_django.apps.users',
+    'ao3_web_reader_django.apps.authenticate',
+    'ao3_web_reader_django.apps.core',
+    'ao3_web_reader_django.apps.works',
+    'ao3_web_reader_django.apps.api',
 ]
 
 if DEBUG:
@@ -86,7 +87,7 @@ WSGI_APPLICATION = 'ao3_web_reader_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, "database", "app.sqlite3"),
+        'NAME': os.path.join(PROJECT_DIR, "database", "app.sqlite3"),
     }
 }
 
@@ -114,7 +115,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'apps.users.validators.PasswordLengthValidator',
+        'NAME': 'ao3_web_reader_django.apps.users.validators.PasswordLengthValidator',
     },
 ]
 
@@ -142,13 +143,13 @@ LOGGING = {
             "level": "INFO",
             "class": "logging.FileHandler",
             "formatter": "verbose",
-            "filename": os.path.join(BASE_DIR, "logs", "log.log"),
+            "filename": os.path.join(PROJECT_DIR, "logs", "log.log"),
         },
         "celery_file": {
             "level": "DEBUG",
             "class": "logging.FileHandler",
             "formatter": "simple",
-            "filename": os.path.join(BASE_DIR, "logs", "celery_log.log"),
+            "filename": os.path.join(PROJECT_DIR, "logs", "celery_log.log"),
         },
     },
     "loggers": {

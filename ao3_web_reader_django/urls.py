@@ -19,10 +19,10 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path("", include("apps.core.urls")),
-    path("auth/", include("apps.authenticate.urls")),
-    path("works/", include("apps.works.urls")),
-    path("api/", include("apps.api.urls")),
+    path("", include("ao3_web_reader_django.apps.core.urls")),
+    path("auth/", include("ao3_web_reader_django.apps.authenticate.urls")),
+    path("works/", include("ao3_web_reader_django.apps.works.urls")),
+    path("api/", include("ao3_web_reader_django.apps.api.urls")),
 ]
 
 if settings.DEBUG:
@@ -31,6 +31,6 @@ if settings.DEBUG:
     urlpatterns.append(path('admin/', admin.site.urls))
 
 
-handler404 = "apps.core.error_views.not_found"
-handler500 = "apps.core.error_views.server_error"
-handler400 = "apps.core.error_views.bad_request"
+handler404 = "ao3_web_reader_django.apps.core.error_views.not_found"
+handler500 = "ao3_web_reader_django.apps.core.error_views.server_error"
+handler400 = "ao3_web_reader_django.apps.core.error_views.bad_request"

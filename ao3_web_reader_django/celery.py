@@ -1,7 +1,7 @@
 import os
 from celery import Celery
 from celery.signals import worker_ready
-from apps.core.consts import TasksDelays
+from ao3_web_reader_django.apps.core.consts import TasksDelays
 
 
 # Set the default Django settings module for the 'celery' program.
@@ -23,7 +23,7 @@ app.autodiscover_tasks()
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **kwargs):
     app.conf.beat_schedule["WorksUpdaterProcess"] = {
-        "task": "apps.works.task.works_updater_process.WorksUpdaterProcess",
+        "task": "ao3_web_reader_django.apps.works.task.works_updater_process.WorksUpdaterProcess",
         "schedule": TasksDelays.WORKS_UPDATER_INTERVAL,
     }
 
@@ -31,4 +31,4 @@ def setup_periodic_tasks(sender, **kwargs):
 @worker_ready.connect
 def at_start(sender, **k):
     with sender.app.connection() as conn:
-         sender.app.send_task("apps.works.task.works_updater_process.WorksUpdaterProcess", connection=conn)
+         sender.app.send_task("ao3_web_reader_django.apps.works.task.works_updater_process.WorksUpdaterProcess", connection=conn)

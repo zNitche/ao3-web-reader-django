@@ -10,15 +10,15 @@ services:
     depends_on:
       - redis
     container_name: ao3_web_reader_django
-    command: /bin/sh -c "/ao3_web_reader_django/scripts/entrypoint.sh"
+    command: /bin/sh -c "/ao3-web-reader-django/scripts/entrypoint.sh"
     build: .
     restart: unless-stopped
 #    ports:
 #      - "8000:8000"
     volumes:
-      - ${DB_PATH}:/ao3_web_reader_django/database
-      - ${LOGS_PATH}:/ao3_web_reader_django/logs
-      - static_files:/ao3_web_reader_django/static
+      - ${DB_PATH}:/ao3-web-reader-django/database
+      - ${LOGS_PATH}:/ao3-web-reader-django/logs
+      - static_files:/ao3-web-reader-django/ao3_web_reader_django/static
     env_file:
       - .env
 
@@ -26,13 +26,13 @@ services:
     depends_on:
       - redis
       - web_app
-    command: /bin/sh -c "/ao3_web_reader_django/scripts/celery_entrypoint.sh"
+    command: /bin/sh -c "/ao3-web-reader-django/scripts/celery_entrypoint.sh"
     container_name: ao3_web_reader_celery_worker
     build: .
     restart: unless-stopped
     volumes:
-      - ${DB_PATH}:/ao3_web_reader_django/database
-      - ${LOGS_PATH}:/ao3_web_reader_django/logs
+      - ${DB_PATH}:/ao3-web-reader-django/database
+      - ${LOGS_PATH}:/ao3-web-reader-django/logs
     env_file:
       - .env
 
@@ -41,13 +41,13 @@ services:
       - redis
       - web_app
       - celery_worker
-    command: /bin/sh -c "/ao3_web_reader_django/scripts/celery_beat_entrypoint.sh"
+    command: /bin/sh -c "/ao3-web-reader-django/scripts/celery_beat_entrypoint.sh"
     container_name: ao3_web_reader_celery_beat_worker
     build: .
     restart: unless-stopped
     volumes:
-      - ${DB_PATH}:/ao3_web_reader_django/database
-      - ${LOGS_PATH}:/ao3_web_reader_django/logs
+      - ${DB_PATH}:/ao3-web-reader-django/database
+      - ${LOGS_PATH}:/ao3-web-reader-django/logs
     env_file:
       - .env
 
