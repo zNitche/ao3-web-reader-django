@@ -62,32 +62,30 @@
                         {% if not work.all_chapters_completed %}
                             <button type="button" class="btn" onclick="showChaptersCompletionModal('chaptersCompletionModal',
                                'Do you want to mark all chapters of {{ work.name }} as completed ?',
-                               '{% url 'works:mark_chapters_as_completed' work_id=work.work_id %}?page_id={{ works_paginator.num_pages }}',);">
+                               '{% url 'works:mark_chapters_as_completed' work_id=work.work_id %}?page_id={{ works_items.num_pages }}',);">
                                     <img src="{% static 'icons/done_all_icon.svg' %}" alt="toggle all chapters completion">
                             </button>
                         {% endif %}
                         {% if work.all_chapters_completed %}
                             <button type="button" class="btn" onclick="showChaptersCompletionModal('chaptersCompletionModal',
                                'Do you want to mark all chapters of {{ work.name }} as incomplete ?',
-                               '{% url 'works:mark_chapters_as_incomplete' work_id=work.work_id %}?page_id={{ works_paginator.num_pages }}',);">
+                               '{% url 'works:mark_chapters_as_incomplete' work_id=work.work_id %}?page_id={{ works_items.num_pages }}',);">
                                     <img src="{% static 'icons/remove_done_icon.svg' %}" alt="remove all chapters completion">
                             </button>
                         {% endif %}
                     </div>
                 </div>
             {% endfor %}
-            {% if works_paginator.has_next or works_paginator.has_previous %}
+            {% if works_items.has_next or works_items.has_previous %}
                 <div class="pagination-controls">
-                    {% if works_paginator.has_previous %}
-                        <a class="pagination-controls-item" href="{% url 'works:all_works'
-                         page_id=works_paginator.previous_page_number tag_name=tag.name %}">
+                    {% if works_items.has_previous %}
+                        <a class="pagination-controls-item" href="{% url 'works:works' page_id=works_items.previous_page_number tag_name=tag.name %}">
                             Prev
                         </a>
                     {% endif %}
-                    {% if works_paginator.has_next %}
-                        <a class="pagination-controls-item {% if not works_paginator.has_previous %} left-p-controls-item' {% endif %} }}"
-                           href="{% url 'works:all_works'
-                                 page_id=works_paginator.next_page_number tag_name=tag.name %}">
+                    {% if works_items.has_next %}
+                        <a class="pagination-controls-item {% if not works_items.has_previous %} left-p-controls-item' {% endif %} }}"
+                           href="{% url 'works:works' page_id=works_items.next_page_number tag_name=tag.name %}">
                             Next
                         </a>
                     {% endif %}

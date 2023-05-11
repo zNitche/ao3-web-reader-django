@@ -26,9 +26,7 @@ def works(request, tag_name, page_id=1):
     works_paginator = Paginator(works, PaginationConsts.WORKS_PER_PAGE)
     works_per_page = works_paginator.get_page(page_id)
 
-    return render(request, "works.html", {"works_paginator": works_paginator,
-                                          "works_items": works_per_page,
-                                          "tag": tag})
+    return render(request, "works.html", {"works_items": works_per_page, "tag": tag})
 
 
 @login_required
@@ -40,9 +38,7 @@ def removed_works(request, tag_name, page_id=1):
     works_paginator = Paginator(works, PaginationConsts.WORKS_PER_PAGE)
     works_per_page = works_paginator.get_page(page_id)
 
-    return render(request, "works.html", {"works_paginator": works_paginator,
-                                          "works_items": works_per_page,
-                                          "tag": tag})
+    return render(request, "works.html", {"works_items": works_per_page, "tag": tag})
 
 
 @login_required
