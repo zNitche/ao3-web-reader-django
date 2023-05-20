@@ -17,8 +17,8 @@ def login(request):
 
         if request.method == "POST":
             if form.is_valid():
-                username = request.POST["username"]
-                password = request.POST["password"]
+                username = form.cleaned_data["username"]
+                password = form.cleaned_data["password"]
 
                 user = auth_user(request, username=username, password=password)
 

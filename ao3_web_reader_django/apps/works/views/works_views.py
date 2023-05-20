@@ -66,8 +66,8 @@ def add_work(request):
         form.user = request.user
 
         if form.is_valid():
-            work_id = request.POST["work_id"]
-            tag_name = request.POST["tag_name"]
+            work_id = form.cleaned_data["work_id"]
+            tag_name = form.cleaned_data["tag_name"]
 
             task_data = tasks_utils.get_task_data_for_user_and_work(request.user.id, "ScraperProcess", work_id)
 

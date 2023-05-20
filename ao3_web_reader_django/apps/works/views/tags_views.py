@@ -26,7 +26,7 @@ def add_tag(request):
         form.user = request.user
 
         if form.is_valid():
-            tag_name = request.POST["tag_name"]
+            tag_name = form.cleaned_data["tag_name"]
 
             tag = models.Tag(name=tag_name, owner=request.user)
             tag.save()
