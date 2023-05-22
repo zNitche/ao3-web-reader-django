@@ -38,7 +38,10 @@ sh scripts/celery_entrypoint.sh
 sh scripts/celery_beat_entrypoint.sh
 ```
 #### Prod
-1. Generate `.env` config file and change config values (`DB_PATH` and `LOGS_PATH`).
+1. Generate `.env` config file and change config values
+   - `DB_PATH` - database path
+   - `LOGS_PATH` - logs path
+   - `ALLOWED_HOSTS` - comma separated host names 
 ```
 python3 generate_dotenv.py
 ```

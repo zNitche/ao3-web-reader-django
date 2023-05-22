@@ -9,6 +9,7 @@ def get_main_config():
         "LOGS_PATH": "",
         "DEBUG": "0",
         "WORKS_UPDATER_INTERVAL": 7200,
+        "ALLOWED_HOSTS": "",
     }
 
     return args
