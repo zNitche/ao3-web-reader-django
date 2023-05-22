@@ -54,6 +54,7 @@ services:
   nginx:
     container_name: nginx
     build: ./nginx
+    restart: unless-stopped
     ports:
       - "80:80"
     volumes:
