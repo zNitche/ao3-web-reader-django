@@ -84,6 +84,16 @@ WSGI_APPLICATION = 'ao3_web_reader_django.wsgi.application'
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 
+# DB Migrations
+# https://docs.djangoproject.com/en/4.2/ref/settings/#migration-modules
+MIGRATION_MODULES = {
+    "users": "database.migrations.users",
+    "core": "database.migrations.core",
+    "authenticate": "database.migrations.authenticate",
+    "works": "database.migrations.works",
+    "api": "database.migrations.api",
+}
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
